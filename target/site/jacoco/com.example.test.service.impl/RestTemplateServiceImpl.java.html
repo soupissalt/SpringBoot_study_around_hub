@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="ko"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>RestTemplateServiceImpl.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">Test</a> &gt; <a href="index.source.html" class="el_package">com.example.test.service.impl</a> &gt; <span class="el_source">RestTemplateServiceImpl.java</span></div><h1>RestTemplateServiceImpl.java</h1><pre class="source lang-java linenums">package com.example.test.service.impl;
+
+import com.example.test.dto.MemberDTO;
+import com.example.test.service.RestTemplateService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.http.RequestEntity;
+import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Service;
+import org.springframework.web.client.RestTemplate;
+import org.springframework.web.util.UriComponentsBuilder;
+
+import java.net.URI;
+import java.net.URL;
+
+@Service
+<span class="fc" id="L17">public class RestTemplateServiceImpl implements RestTemplateService {</span>
+<span class="fc" id="L18">    private final Logger LOGGER = LoggerFactory.getLogger(RestTemplateServiceImpl.class);</span>
+
+    @Override
+    public String getTest(){
+<span class="nc" id="L22">        URI uri = UriComponentsBuilder</span>
+<span class="nc" id="L23">                .fromUriString(&quot;http://localhost:8080&quot;)</span>
+<span class="nc" id="L24">                .path(&quot;/api/server/test&quot;)</span>
+<span class="nc" id="L25">                .encode()</span>
+<span class="nc" id="L26">                .build()</span>
+<span class="nc" id="L27">                .toUri();</span>
+
+<span class="nc" id="L29">        RestTemplate restTemplate = new RestTemplate();</span>
+<span class="nc" id="L30">        ResponseEntity&lt;String&gt; responseEntity = restTemplate.getForEntity(uri, String.class);</span>
+
+<span class="nc" id="L32">        LOGGER.info(&quot;status code : {}&quot;, responseEntity.getStatusCode());</span>
+<span class="nc" id="L33">        LOGGER.info(&quot;body : {}&quot;, responseEntity.getBody());</span>
+
+<span class="nc" id="L35">        return responseEntity.getBody();</span>
+    }
+    @Override
+    public String getName(){
+<span class="nc" id="L39">        URI uri = UriComponentsBuilder</span>
+<span class="nc" id="L40">                .fromUriString(&quot;http://localhost:8080&quot;)</span>
+<span class="nc" id="L41">                .path(&quot;/api/server/name&quot;)</span>
+<span class="nc" id="L42">                .queryParam(&quot;name&quot;, &quot;Chanho&quot;)</span>
+<span class="nc" id="L43">                .encode()</span>
+<span class="nc" id="L44">                .build()</span>
+<span class="nc" id="L45">                .toUri();</span>
+
+<span class="nc" id="L47">        RestTemplate restTemplate = new RestTemplate();</span>
+<span class="nc" id="L48">        ResponseEntity&lt;String&gt; responseEntity = restTemplate.getForEntity(uri, String.class);</span>
+
+<span class="nc" id="L50">        LOGGER.info(&quot;status code : {}&quot;, responseEntity.getStatusCode());</span>
+<span class="nc" id="L51">        LOGGER.info(&quot;body : {}&quot;, responseEntity.getBody());</span>
+
+<span class="nc" id="L53">        return responseEntity.getBody();</span>
+    }
+
+    @Override
+    public String getName2(){
+<span class="nc" id="L58">        URI uri = UriComponentsBuilder</span>
+<span class="nc" id="L59">                .fromUriString(&quot;http://localhost:8080&quot;)</span>
+<span class="nc" id="L60">                .path(&quot;/api/server/path-variable/{name}&quot;)</span>
+<span class="nc" id="L61">                .encode()</span>
+<span class="nc" id="L62">                .build()</span>
+<span class="nc" id="L63">                .expand(&quot;Chanho&quot;)</span>
+<span class="nc" id="L64">                .toUri();</span>
+
+<span class="nc" id="L66">        RestTemplate restTemplate = new RestTemplate();</span>
+<span class="nc" id="L67">        ResponseEntity&lt;String&gt; responseEntity = restTemplate.getForEntity(uri, String.class);</span>
+
+<span class="nc" id="L69">        LOGGER.info(&quot;status code : {}&quot;, responseEntity.getStatusCode());</span>
+<span class="nc" id="L70">        LOGGER.info(&quot;body : {}&quot;, responseEntity.getBody());</span>
+
+<span class="nc" id="L72">        return responseEntity.getBody();</span>
+
+    }
+    @Override
+    public ResponseEntity&lt;MemberDTO&gt; postDto(){
+<span class="nc" id="L77">        URI uri = UriComponentsBuilder</span>
+<span class="nc" id="L78">                .fromUriString(&quot;http://localhost:8080&quot;)</span>
+<span class="nc" id="L79">                .path(&quot;/api/server/member&quot;)</span>
+<span class="nc" id="L80">                .queryParam(&quot;name&quot;, &quot;Chanho&quot;)</span>
+<span class="nc" id="L81">                .queryParam(&quot;email&quot;, &quot;ccc@CCC.com&quot;)</span>
+<span class="nc" id="L82">                .queryParam(&quot;organization&quot;, &quot;Test&quot;)</span>
+<span class="nc" id="L83">                .encode()</span>
+<span class="nc" id="L84">                .build()</span>
+<span class="nc" id="L85">                .toUri();</span>
+
+<span class="nc" id="L87">        MemberDTO memberDTO = new MemberDTO();</span>
+<span class="nc" id="L88">        memberDTO.setName(&quot;cksgh&quot;);</span>
+<span class="nc" id="L89">        memberDTO.setEmail(&quot;aaa@aaa.com&quot;);</span>
+<span class="nc" id="L90">        memberDTO.setOrganization(&quot;Test&quot;);</span>
+
+<span class="nc" id="L92">        RestTemplate restTemplate = new RestTemplate();</span>
+<span class="nc" id="L93">        ResponseEntity&lt;MemberDTO&gt; responseEntity = restTemplate.postForEntity(uri, memberDTO, MemberDTO.class);</span>
+
+<span class="nc" id="L95">        LOGGER.info(&quot;status code : {}&quot;, responseEntity.getStatusCode());</span>
+<span class="nc" id="L96">        LOGGER.info(&quot;body : {}&quot;, responseEntity.getBody());</span>
+
+<span class="nc" id="L98">        return responseEntity;</span>
+    }
+
+    @Override
+    public ResponseEntity&lt;MemberDTO&gt; addHeader(){
+<span class="nc" id="L103">        URI uri = UriComponentsBuilder</span>
+<span class="nc" id="L104">                .fromUriString(&quot;http://localhost:8080&quot;)</span>
+<span class="nc" id="L105">                .path(&quot;/api/server/add-header&quot;)</span>
+<span class="nc" id="L106">                .encode()</span>
+<span class="nc" id="L107">                .build()</span>
+<span class="nc" id="L108">                .toUri();</span>
+
+<span class="nc" id="L110">        MemberDTO memberDTO = new MemberDTO();</span>
+<span class="nc" id="L111">        memberDTO.setName(&quot;cksgh&quot;);</span>
+<span class="nc" id="L112">        memberDTO.setEmail(&quot;aaa@aaa.com&quot;);</span>
+<span class="nc" id="L113">        memberDTO.setOrganization(&quot;Test&quot;);</span>
+
+<span class="nc" id="L115">        RequestEntity&lt;MemberDTO&gt; requestEntity = RequestEntity</span>
+<span class="nc" id="L116">                .post(uri)</span>
+<span class="nc" id="L117">                .header(&quot;test-header&quot;, &quot;Test&quot;)</span>
+<span class="nc" id="L118">                .body(memberDTO);</span>
+
+<span class="nc" id="L120">        RestTemplate restTemplate = new RestTemplate();</span>
+<span class="nc" id="L121">        ResponseEntity&lt;MemberDTO&gt; responseEntity = restTemplate.exchange(requestEntity, MemberDTO.class);</span>
+
+<span class="nc" id="L123">        LOGGER.info(&quot;status code : {}&quot;, responseEntity.getStatusCode());</span>
+<span class="nc" id="L124">        LOGGER.info(&quot;body : {}&quot;, responseEntity.getBody());</span>
+
+<span class="nc" id="L126">        return responseEntity;</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.8.202204050719</span></div></body></html>

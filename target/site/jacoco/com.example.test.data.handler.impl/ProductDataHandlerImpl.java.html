@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="ko"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>ProductDataHandlerImpl.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">Test</a> &gt; <a href="index.source.html" class="el_package">com.example.test.data.handler.impl</a> &gt; <span class="el_source">ProductDataHandlerImpl.java</span></div><h1>ProductDataHandlerImpl.java</h1><pre class="source lang-java linenums">package com.example.test.data.handler.impl;
+
+import com.example.test.data.dao.ProductDAO;
+import com.example.test.data.entity.ProductEntity;
+import com.example.test.data.handler.ProductDataHandler;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import javax.transaction.Transactional;
+
+@Service
+@Transactional
+public class ProductDataHandlerImpl implements ProductDataHandler {
+    ProductDAO productDAO;
+
+    @Autowired
+<span class="fc" id="L17">    public ProductDataHandlerImpl(ProductDAO productDAO) {this.productDAO = productDAO;}</span>
+
+    @Override
+    public ProductEntity saveProductEntity(String productId, String productName, int productPrice, int productStock){
+<span class="nc" id="L21">        ProductEntity productEntity = new ProductEntity(productId, productName, productPrice, productStock);</span>
+
+<span class="nc" id="L23">        return productDAO.saveProduct(productEntity);</span>
+    }
+
+    @Override
+    public ProductEntity getProductEntity(String productId){
+<span class="nc" id="L28">        return productDAO.getProduct(productId);</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.8.202204050719</span></div></body></html>
